@@ -32,16 +32,28 @@ app.use(express.json());
 const dataList = [];
 
 app.get('/data', async (req, res) => {
-    const allData = await SensorData.findAll();  
-    res.status(200).send(allData);
-    return;
+    try{
+        const allData = await SensorData.findAll();  
+        res.status(200).send(allData);
+        return;
+    }
+    catch(e) {
+        return;
+    }
+    
 });
 
 app.post('/data', async (req, res) => {
-    let data = req.body;
-    const sensorData = await SensorData.create(data);  
-    res.status(201).send(sensorData);
-    return;
+    try {
+        const data = req.body;
+        const sensorData = await SensorData.create(data);  
+        res.status(201).send(sensorData);
+        return;
+    }
+    catch(e) {
+        return;
+    }
+    
 });
 
 app.listen({ port: 8080 }, () => {
