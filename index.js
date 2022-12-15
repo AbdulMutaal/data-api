@@ -40,18 +40,10 @@ app.use(compression());
 app.use(express.json());
 // app.use(limiter);
 
-const dataList = [];
-
 app.get('/data', async (req, res) => {
-    try{
-        const allData = await SensorData.findAll();  
-        res.status(200).send(allData);
-        return;
-    }
-    catch(e) {
-        return;
-    }
-    
+    const allData = await SensorData.findAll();  
+    res.status(200).send(allData);
+    return;
 });
 
 app.post('/data', async (req, res) => {
@@ -60,8 +52,8 @@ app.post('/data', async (req, res) => {
         const sensorData = await SensorData.create(data);  
         res.status(201).send(sensorData);
         return;
-    }
-    catch(e) {
+    }catch(e) {
+        res.status(400);
         return;
     }
     
