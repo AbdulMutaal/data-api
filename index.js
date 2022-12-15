@@ -8,8 +8,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     dialectOptions: {
         "ssl": {
-            "require": true,
-            "rejectUnauthorized": false
+            require: true,
+            rejectUnauthorized: false
         }
     }
 });
@@ -38,7 +38,7 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 app.use(express.json());
-// app.use(limiter);
+app.use(limiter);
 
 app.get('/data', async (req, res) => {
     const allData = await SensorData.findAll();  
